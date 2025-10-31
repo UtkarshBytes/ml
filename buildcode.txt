@@ -1,0 +1,170 @@
+------------------------------------------------------
+1️⃣ EXECUTE HDFS BASIC COMMANDS (hdfs_practical.sh)
+------------------------------------------------------
+# Create local file
+echo "Welcome to Big Data Analytics!" > sample.txt
+
+# Create directory in HDFS
+hdfs dfs -mkdir /user
+hdfs dfs -mkdir /user/utkarsh
+
+# Upload file to HDFS
+hdfs dfs -put sample.txt /user/utkarsh/
+
+# List directory
+hdfs dfs -ls /user/utkarsh
+
+# View file content
+hdfs dfs -cat /user/utkarsh/sample.txt
+
+# Download file from HDFS to local
+hdfs dfs -get /user/utkarsh/sample.txt /home/utkarsh/
+
+# Remove file and directory
+hdfs dfs -rm /user/utkarsh/sample.txt
+hdfs dfs -rmdir /user/utkarsh/
+
+------------------------------------------------------
+2️⃣ EXECUTE NoSQL COMMANDS (MongoDB)
+------------------------------------------------------
+# Open Mongo shell
+mongo
+
+# Create and use database
+use studentDB
+
+# Create collection and insert documents
+db.createCollection("students")
+
+db.students.insertMany([
+  {roll: 1, name: "Utkarsh", marks: 95},
+  {roll: 2, name: "Aman", marks: 90},
+  {roll: 3, name: "Abhishek", marks: 88}
+])
+
+# Display all records
+db.students.find().pretty()
+
+# Query examples
+db.students.find({marks: {$gt: 89}})
+db.students.update({roll: 3}, {$set: {marks: 91}})
+db.students.remove({roll: 2})
+
+# Show final data
+db.students.find().pretty()
+
+# Drop collection
+db.students.drop()
+exit
+
+------------------------------------------------------
+3️⃣ EXECUTE HIVE COMMANDS (hive_practical.hql)
+------------------------------------------------------
+# Start Hive shell
+hive
+
+# Create and use database
+create database if not exists studentDB;
+use studentDB;
+
+# Create table
+create table if not exists student (
+  roll int,
+  name string,
+  marks int
+)
+row format delimited
+fields terminated by ','
+stored as textfile;
+
+# Load local data
+load data local inpath '/home/utkarsh/student.csv' into table student;
+
+# Display data
+select * from student;
+
+# Aggregate queries
+select count(*) as total_students from student;
+select avg(marks) as average_marks from student;
+
+# Filter data
+select * from student where marks > 85;
+
+# Describe structure
+describe student;
+
+# Drop table
+drop table student;
+exit;
+
+------------------------------------------------------
+4️⃣ EXECUTE R SCRIPT (R_Execution.R)
+------------------------------------------------------
+# Simple R Script for Practical
+
+cat("Executing R Script Successfully!\n")
+
+# Create vector and perform operations
+nums <- c(10, 20, 30, 40, 50)
+cat("Numbers: ", nums, "\n")
+cat("Sum = ", sum(nums), "\n")
+cat("Mean = ", mean(nums), "\n")
+
+# Create data frame
+student <- data.frame(
+  Roll = c(1, 2, 3, 4),
+  Name = c("Utkarsh", "Aman", "Abhishek", "Vaibhav"),
+  Marks = c(95, 90, 88, 92)
+)
+
+cat("\nStudent Data:\n")
+print(student)
+
+# Write output to file
+write.csv(student, "student_output.csv", row.names = FALSE)
+cat("\nData written to student_output.csv\n")
+
+# Run Command:
+#   Rscript R_Execution.R
+
+------------------------------------------------------
+5️⃣ PERFORM DATA VISUALIZATION USING R (R_Visualization.R)
+------------------------------------------------------
+# Data Visualization using R
+
+# Install and load ggplot2
+install.packages("ggplot2")
+library(ggplot2)
+
+# Create dataset
+student <- data.frame(
+  Name = c("Utkarsh", "Aman", "Abhishek", "Vaibhav"),
+  Marks = c(95, 90, 88, 92)
+)
+
+# Display dataset
+print(student)
+
+# Bar Plot
+barplot(student$Marks, names.arg=student$Name,
+        col="lightblue", main="Student Marks",
+        xlab="Student", ylab="Marks")
+
+# Histogram
+hist(student$Marks, col="orange", main="Marks Distribution", xlab="Marks")
+
+# ggplot2 Visualization
+ggplot(student, aes(x=Name, y=Marks, fill=Name)) +
+  geom_bar(stat="identity") +
+  ggtitle("Student Marks Visualization") +
+  theme_minimal()
+
+# Save plots
+ggsave("student_barplot.png")
+ggsave("student_hist.png")
+
+# Run Command:
+#   Rscript R_Visualization.R
+
+------------------------------------------------------
+

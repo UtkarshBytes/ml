@@ -1,0 +1,174 @@
+--------------------------------------------------
+1️⃣ EXECUTE HDFS BASIC COMMANDS
+--------------------------------------------------
+# Start Hadoop services
+start-dfs.sh
+start-yarn.sh
+
+# Verify running daemons
+jps
+
+# List files in root
+hdfs dfs -ls /
+
+# Create directories
+hdfs dfs -mkdir /user
+hdfs dfs -mkdir /user/utkarsh
+
+# Upload file to HDFS
+hdfs dfs -put sample.txt /user/utkarsh/
+
+# List files in your folder
+hdfs dfs -ls /user/utkarsh
+
+# Read file from HDFS
+hdfs dfs -cat /user/utkarsh/sample.txt
+
+# Download file from HDFS
+hdfs dfs -get /user/utkarsh/sample.txt /home/utkarsh/
+
+# Remove file/folder
+hdfs dfs -rm /user/utkarsh/sample.txt
+hdfs dfs -rm -r /user/utkarsh/
+
+--------------------------------------------------
+2️⃣ EXECUTE NoSQL COMMANDS (MongoDB)
+--------------------------------------------------
+# Start Mongo shell
+mongo
+
+# Show all databases
+show dbs
+
+# Create/Use a database
+use studentDB
+
+# Create a collection
+db.createCollection("students")
+
+# Show collections
+show collections
+
+# Insert one record
+db.students.insert({roll: 101, name: "Utkarsh", marks: 90})
+
+# Insert multiple records
+db.students.insertMany([
+  {roll: 102, name: "Aman", marks: 85},
+  {roll: 103, name: "Abhishek", marks: 88}
+])
+
+# Display all records
+db.students.find().pretty()
+
+# Find with condition
+db.students.find({marks: {$gt: 85}})
+
+# Update a record
+db.students.update({roll: 101}, {$set: {marks: 95}})
+
+# Delete a record
+db.students.remove({roll: 103})
+
+# Drop collection
+db.students.drop()
+
+# Exit Mongo shell
+exit
+
+--------------------------------------------------
+3️⃣ EXECUTE HIVE COMMANDS
+--------------------------------------------------
+# Start Hive shell
+hive
+
+# Show databases
+show databases;
+
+# Create a new database
+create database studentDB;
+
+# Use database
+use studentDB;
+
+# Create a table
+create table student (
+  roll int,
+  name string,
+  marks int
+)
+row format delimited
+fields terminated by ','
+stored as textfile;
+
+# Show tables
+show tables;
+
+# Load data into table
+load data local inpath '/home/utkarsh/student.csv' into table student;
+
+# Display records
+select * from student;
+
+# Count records
+select count(*) from student;
+
+# Filter data
+select * from student where marks > 85;
+
+# Describe table
+describe student;
+
+# Drop table
+drop table student;
+
+--------------------------------------------------
+4️⃣ EXECUTE R SCRIPTS
+--------------------------------------------------
+# R Script Example (myscript.R)
+
+cat("R Script Executed Successfully!\n")
+
+# Create vector
+nums <- c(10, 20, 30, 40, 50)
+print(nums)
+
+# Sum and Mean
+cat("Sum:", sum(nums), "\n")
+cat("Mean:", mean(nums), "\n")
+
+# Write output to file
+write(paste("Sum:", sum(nums), "Mean:", mean(nums)), "output.txt")
+
+# ---- Terminal Commands ----
+# Ubuntu / Windows:
+#   Rscript myscript.R
+
+--------------------------------------------------
+5️⃣ PERFORM DATA VISUALIZATION USING R
+--------------------------------------------------
+# Install and load ggplot2
+install.packages("ggplot2")
+library(ggplot2)
+
+# Load dataset
+data(mtcars)
+head(mtcars)
+
+# Histogram
+hist(mtcars$mpg, col="lightblue", main="Miles Per Gallon", xlab="mpg")
+
+# Scatter Plot
+plot(mtcars$wt, mtcars$mpg, col="red", pch=19,
+     main="Weight vs MPG", xlab="Weight", ylab="Miles Per Gallon")
+
+# ggplot2 Scatter Plot
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point(color="blue") +
+  ggtitle("Weight vs MPG (ggplot2)")
+
+# Save plot
+ggsave("plot.png")
+
+--------------------------------------------------
+
